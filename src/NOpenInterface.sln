@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOpenInterface", "NOpenInterface\NOpenInterface.csproj", "{4AD9827B-03A7-4334-BF02-7DF6A913C497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOpenInterface.Implementation.DotNet", "NOpenInterface.Implementation.DotNet\NOpenInterface.Implementation.DotNet.csproj", "{D645C333-4D9C-41E4-8BE7-2A575066675C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AD9827B-03A7-4334-BF02-7DF6A913C497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD9827B-03A7-4334-BF02-7DF6A913C497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD9827B-03A7-4334-BF02-7DF6A913C497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD9827B-03A7-4334-BF02-7DF6A913C497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
