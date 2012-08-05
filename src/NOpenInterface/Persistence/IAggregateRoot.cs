@@ -15,20 +15,17 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with NOpenInterface. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+namespace NOpenInterface.Persistence
+{
+	using System.Runtime.Serialization;
 
-[assembly: AssemblyTitle("NOpenInterface")]
-[assembly:
-	AssemblyDescription(
-		"A small set of purposefully simple interfaces that are commonly required in .NET web applications."
-		)]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Ben Aston")]
-[assembly: AssemblyProduct("NOpenInterface")]
-[assembly: AssemblyCopyright("Copyright © Ben Aston")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("043bdf9f-8724-4147-88df-0c065dbe4654")]
-[assembly: AssemblyVersion("1.0.*")]
+	/// <summary>
+	/// 	Responsible for providing a type to implement to indicate a type is considered suitable for persistence to long-term storage.
+	/// </summary>
+	public interface IAggregateRoot : ISerializable
+	{
+		string Id { get; set; } //was_id per CouchDb
+
+		string Revision { get; set; } //was _rev per CouchDb
+	}
+}

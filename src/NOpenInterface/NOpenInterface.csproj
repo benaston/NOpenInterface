@@ -48,6 +48,17 @@
     <Compile Include="Patterns\Creational\IDeferredFactory.cs" />
     <Compile Include="Patterns\Creational\IFactory.cs" />
     <Compile Include="Patterns\Creational\IBuilder.cs" />
+    <Compile Include="Persistence\CollectionPersistenceStrategyDelegate.cs" />
+    <Compile Include="Persistence\CollectionRetrievalStrategyDelegate.cs" />
+    <Compile Include="Persistence\IAggregateRoot.cs" />
+    <Compile Include="Persistence\ICollectionPersistenceStrategy.cs" />
+    <Compile Include="Persistence\ICollectionRetrievalStrategy.cs" />
+    <Compile Include="Persistence\IPersistenceStrategy.cs" />
+    <Compile Include="Persistence\IPersistentMemory.cs" />
+    <Compile Include="Persistence\IRepository.cs" />
+    <Compile Include="Persistence\IRetrievalStrategy.cs" />
+    <Compile Include="Persistence\PersistenceStrategyDelegate.cs" />
+    <Compile Include="Persistence\RetrievalStrategyDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Time\IClock.cs" />
     <Compile Include="User\IAuthenticationService.cs" />
