@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOpenInterface", "NOpenInte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOpenInterface.Implementation.DotNet", "NOpenInterface.Implementation.DotNet\NOpenInterface.Implementation.DotNet.csproj", "{D645C333-4D9C-41E4-8BE7-2A575066675C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOpenInterface.ExampleRestApi", "NOpenInterface.ExampleRestApi\NOpenInterface.ExampleRestApi.csproj", "{816FBCC1-C7EA-4EF2-A7BC-3AF1C5C01DB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D645C333-4D9C-41E4-8BE7-2A575066675C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{816FBCC1-C7EA-4EF2-A7BC-3AF1C5C01DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816FBCC1-C7EA-4EF2-A7BC-3AF1C5C01DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{816FBCC1-C7EA-4EF2-A7BC-3AF1C5C01DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{816FBCC1-C7EA-4EF2-A7BC-3AF1C5C01DB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

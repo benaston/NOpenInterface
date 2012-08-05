@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with NOpenInterface. If not, see <http://www.gnu.org/licenses/>.
 
-namespace NOpenInterface.Http
+namespace NOpenInterface.Implementation.DotNet.Http
 {
 	using System;
 	using System.Reflection;

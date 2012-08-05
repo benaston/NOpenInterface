@@ -15,79 +15,79 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with NOpenInterface. If not, see <http://www.gnu.org/licenses/>.
 
-namespace NOpenInterface.Implementation.AspDotNet.Http
+namespace NOpenInterface.Implementation.DotNet.Http
 {
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Web;
 	using System.Web.Mvc;
+	using Extensions;
 	using NOpenInterface.Http;
 
 	/// <summary>
 	/// 	Default implementation of IRestfulResource for use in ASP.NET MVC.
 	/// </summary>
-	public abstract class RestfulResourceController<TResource> : Controller, IRestfulResource<TResource, ActionResult>
+	public abstract class RestfulResourceController : Controller
 	{
-		/// <summary>
-		/// 	Maps MIME content-types to functions to generate the response.
-		/// </summary>
-		public IDictionary<string, ResponseFactoryDelegate<ActionResult>> ResponseFactories { get; private set; }
+		private IEnumerable<KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>> _responseFactories = new List<KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>>();
+		private readonly KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>[] _allResponseFactories;
+
+		public string[] SupportedAcceptHeaders { get; set; }
 
 		protected RestfulResourceController() {
-			ResponseFactories = new Dictionary<string, ResponseFactoryDelegate<ActionResult>> {
-				{"application/json", NotImplementedResponseFactory},
-				//example
-			};
+			_allResponseFactories = new [] {
+					new KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>("*/*", WildcardResponseFactory),
+					new KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>("text/html", TextHtmlResponseFactory),
+					new KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>("application/json", ApplicationJsonResponseFactory),
+					new KeyValuePair<string, ResponseFactoryDelegate<ActionResult>>("text/xml", TextXmlResponseFactory),
+				};
+			_responseFactories = _allResponseFactories.Where(f => SupportedAcceptHeaders.Contains(f.Key));
 		}
 
-		[HttpGet]
-		public ActionResult Get() {
-			return GetResponseFactory(Request)();
+		protected ResponseFactoryDelegate<ActionResult> GetResponseFactory(HttpRequestBase httpRequest) {
+			if(httpRequest.AcceptTypes == null) {
+				return InvalidRequestResponseFactory;
+			}
+
+				foreach (var acceptType in httpRequest.AcceptTypes) {
+					if (_responseFactories.Any(f => f.Key == acceptType)) {
+						return _responseFactories.First(f => f.Key == acceptType).Value;
+					}
+				}
+			
+				return NotImplementedResponseFactory;
 		}
 
-		[HttpGet]
-		public ActionResult Get(string resourceId) {
-			return GetResponseFactory(Request)(new {Id = resourceId});
+		protected ActionResult WildcardResponseFactory(dynamic responseModel)
+		{
+			return new JsonResult { Data = responseModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 		}
 
-		[HttpPut]
-		public ActionResult Put(dynamic dto) {
-			return GetResponseFactory(Request)(new {Dto = dto});
+		protected ActionResult ApplicationJsonResponseFactory(dynamic responseModel)
+		{
+			return new JsonResult { Data = responseModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 		}
 
-		[HttpPost]
-		public ActionResult Post(dynamic dto) {
-			return GetResponseFactory(Request)(new {Dto = dto});
+		protected ActionResult TextHtmlResponseFactory(dynamic responseModel)
+		{
+			dynamic responseModelExpando = ((object)responseModel).ToExpando();
+
+			return PartialView(responseModelExpando.ViewName, responseModelExpando); //the ToExpando because members of anonymous types are internal
+		}
+		
+		protected ActionResult TextXmlResponseFactory(dynamic responseModel)
+		{
+			return new XmlResult(((object)responseModel).ToXml());
 		}
 
-		[HttpHead]
-		public ActionResult Head() {
-			return GetResponseFactory(Request)();
-		}
-
-		[HttpHead]
-		public ActionResult Head(dynamic dto) {
-			return GetResponseFactory(Request)(new {Dto = dto});
-		}
-
-		public ActionResult Head(string resourceId) {
-			return GetResponseFactory(Request)(new {Id = resourceId});
-		}
-
-		[HttpDelete]
-		public ActionResult Delete(string resourceId) {
-			return GetResponseFactory(Request)(new {Id = resourceId});
-		}
-
-		protected ActionResult NotImplementedResponseFactory(dynamic requestArgs) {
+		protected ActionResult NotImplementedResponseFactory(dynamic requestArgs)
+		{
 			return new HttpStatusCodeResult(501); //not implemented
 		}
 
-		private ResponseFactoryDelegate<ActionResult> GetResponseFactory(HttpRequestBase httpRequest) {
-			try {
-				return ResponseFactories[httpRequest.ContentType];
-			} catch (KeyNotFoundException) {
-				return NotImplementedResponseFactory;
-			}
+		protected ActionResult InvalidRequestResponseFactory(dynamic requestArgs)
+		{
+			return new HttpStatusCodeResult(400); //bad request
 		}
 	}
 }

@@ -1,0 +1,8 @@
+﻿@using NOpenInterface.Implementation.DotNet.Extensions
+<b>examples:</b>
+<ol>
+@foreach(var v in Model.Models) {
+	dynamic ev = ((object)v).ToExpando();
+	<li>@ev.Field1</li>
+}
+</ol>

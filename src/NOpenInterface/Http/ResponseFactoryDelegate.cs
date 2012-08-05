@@ -17,5 +17,5 @@
 
 namespace NOpenInterface.Http
 {
-	public delegate TResponse ResponseFactoryDelegate<TResponse>(dynamic requestArgs = null);
+	public delegate TResponse ResponseFactoryDelegate<TResponse>(dynamic responseModel = null);
 }
